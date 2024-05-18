@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 long int findSize(FILE *filePointer) {
-
+    fseek(filePointer, )
 }
 
 int main() {
