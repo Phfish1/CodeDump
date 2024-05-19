@@ -14,8 +14,6 @@ int matrix[][10] = {
     { 45, 344, 622, 627, 349, 184, 802, 400, 701, 550 }
 };
 
-int hit;
-
 long row_length = sizeof(matrix) / sizeof(matrix[0]);
 long column_length = sizeof(matrix[0]) / sizeof(matrix[0][0]);
 
@@ -25,8 +23,14 @@ int current_cost;
 int *shortest_path;
 int shortest_path_cost;
 
-void appendToArray(int *array, int value) {
-
+int canVisit(int next_row, int next_column) {
+    if (next_row >= 0 && next_row < row_length && next_column >= 0 && next_column < column_length) { // checks if row is 0 or higher but also not higher that size of row
+        if ( *(marked_matrix + (column_length * next_row) + next_column) != 1) {
+            if ( *(matrix + (column_length * next_row) + next_column) == 1) {
+                return 1;
+            }
+        }
+    }
 }
 
 int dijkstras(int row, int column) {
@@ -38,21 +42,18 @@ int dijkstras(int row, int column) {
         int row_vertecies[] = {+1, 0};
         int column_vertecies[] = {0, +1};
 
+
         int nextRow = row + row_vertecies[i];
         int nextColumn = column + column_vertecies[i];
 
-        if (nextRow < row_length && nextColumn < column_length) { // checks if nextRow is is higher that size of row
-            current_cost += matrix[nextRow][nextColumn];
-            appendToArray(current_path, );
-
+        if (canVisit(nextRow, nextColumn)) {
+            printf("Row: %d | Column: %d\n", row, column);
             if (dijkstras(nextRow, nextColumn) == 1) {
-                current_cost -= matrix[nextRow][nextColumn];
+                printf("Visits: %d: %d\n", row, column);
+                return 1;
             }   
         }
-
     }
-
-    current_cost -= matrix[row][column];
 
 
 
@@ -62,5 +63,5 @@ int dijkstras(int row, int column) {
 
 int main() {
     dijkstras(0, 0);
-    printf("HIT: %i", hit);
+
 };
