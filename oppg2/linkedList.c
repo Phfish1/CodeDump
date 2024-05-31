@@ -47,7 +47,6 @@ node popNode(node head) {
         return NULL;
     }
     else if (head->next == NULL) {
-        free(head->data);
         free(head);
         return NULL;
     } else {
@@ -56,7 +55,6 @@ node popNode(node head) {
             p = p->next;
         }
 
-        free(p->next->data);
         free(p->next);
         p->next = NULL;
         
@@ -65,7 +63,7 @@ node popNode(node head) {
 }
 
 int* createPathArray(int value_1, int value_2) { // Another solution could be to create some sort of array structure, storing the length of the array
-    int *temp = malloc(sizeof(int) * 2); // Allocate 2 * sizeof(int) / 8 bytes to memory
+    int *temp = (int *)malloc(sizeof(int) * 2); // Allocate 2 * sizeof(int) / 8 bytes to memory
     temp[0] = value_1; // store parameters in memory
     temp[1] = value_2;
 
@@ -95,6 +93,20 @@ void freeList(node head) {
         free(temp->data);
         free(temp);
     }
+}
+
+node copyList(node src_list, node dst_list) {
+    dst_list = NULL;
+    //free(dst_list);
+    freeList(dst_list);
+
+    node p = src_list;
+    while (p != NULL) {
+        dst_list = addNode(dst_list, p->data);
+        p = p->next;
+    }
+
+    return dst_list;
 }
 
 //Example Use code

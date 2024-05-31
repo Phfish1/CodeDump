@@ -41,8 +41,8 @@ node find_next_paths(int row, int column) {
 
 int dijkstras(int row, int column) {
     if (row == matrix_rows - 1 && column == matrix_columns - 1) {
-        //printf("Cost: %i\n", current_cost);
-        printList(current_path);
+        printf("Cost: %i\n", current_cost);
+        //printList(current_path);
         return 1;
     }
 
