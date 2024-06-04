@@ -8,7 +8,10 @@ int current_cost = 0;
 
 node shortest_path = NULL;
 int shortest_cost = 2147483647;
+int do_shortest = 1;
 
+//int shortest_cost = 0;
+//int do_shortest = 0;
 
 node find_next_paths(matrixList matrix, int row, int column)
 {
@@ -39,10 +42,17 @@ int dijkstras(matrixList matrix, int row, int column)
 
     if (row == matrix_rows - 1)
     {
-        if (current_cost < shortest_cost)
-        {
-            shortest_path = copyList(current_path, shortest_path);
-            shortest_cost = current_cost;
+        if (do_shortest == 1) {
+            if (current_cost < shortest_cost)
+            {
+                shortest_path = copyList(current_path, shortest_path);
+                shortest_cost = current_cost;
+            }
+        } else {
+            if (current_cost > shortest_cost) {
+                shortest_path = copyList(current_path, shortest_path);
+                shortest_cost = current_cost;
+            }
         }
 
         return 1;
@@ -56,7 +66,7 @@ int dijkstras(matrixList matrix, int row, int column)
         current_path = addNode(current_path, createPathArray(p->data[0], p->data[1]));
         current_cost += matrix->data[p->data[0]]->data[p->data[1]];
 
-        if (current_cost > shortest_cost)
+        if (current_cost > shortest_cost && do_shortest == 1)
         {
             current_cost -= matrix->data[p->data[0]]->data[p->data[1]];
             current_path = popNode(current_path);
@@ -89,18 +99,12 @@ int dijkstras(matrixList matrix, int row, int column)
 
 int main()
 {
-
-
     matrixList matrix = spawnMatrix();
-
-
-
     current_cost += matrix->data[0]->data[0];
 
-    //int do_shortest = 1;
     dijkstras(matrix, 0, 0);
+   
 
-    
     node p = shortest_path;
     while (p != NULL)
     {
@@ -111,6 +115,6 @@ int main()
 
     printf("%i\n", shortest_cost);
     freeList(current_path);
-
+    freeMatrix(matrix);
 
 };
