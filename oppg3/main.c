@@ -98,7 +98,6 @@ int main()
     current_cost += matrix->data[0]->data[0];
 
     //int do_shortest = 1;
-
     dijkstras(matrix, 0, 0);
 
     

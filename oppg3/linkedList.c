@@ -116,7 +116,6 @@ void freeList(node head)
 node copyList(node src_list, node dst_list)
 {
     dst_list = NULL;
-    // free(dst_list);
     freeList(dst_list);
 
     node p = src_list;
@@ -129,20 +128,3 @@ node copyList(node src_list, node dst_list)
     return dst_list;
 }
 
-// Example Use code
-/*int main() {
-    node list = NULL;
-    //list->data = createPathArray(10, 15);
-
-    list = addNode(list, createPathArray(100, 150));
-    list = addNode(list, createPathArray(200, 300));
-    //printList(list);
-
-    //printf("\n\n");
-    //popNode(list);
-
-    printf("%i", list->next->data[0]);
-    //printList(list);
-
-
-};*/
