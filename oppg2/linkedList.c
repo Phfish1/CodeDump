@@ -1,19 +1,21 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+// Create LinkedList structure that stores (pointer to int "data") and (pointer to itself "next") 
 struct LinkedList {
     int *data;
     struct LinkedList *next;
 };
 
 // Define new dataType of LinkedList pointer = node
-typedef struct LinkedList *node; // Node is a pointer to a LinkedList structure ( sizeof(int) + sizeof(*int) )
+typedef struct LinkedList *node; // Node is a pointer to a LinkedList structure ( sizeof(int*) + sizeof(LinktesList*) )
 
+// Creates new node in the linkedList
 node createNode() {
-    node temp;
+    node temp; // Create temp as datatype LinkedList
     temp = (node)malloc(sizeof(struct LinkedList)); // (node) = Return a pointer to LinkedList, Sizeof() = allocate size of LinkedList struct to memory
     temp->next = NULL; // Makes last item in linked_list point to NULL
-    temp->data = NULL;
+    temp->data = NULL; // Make temp.data == NULL
     return temp; // returns LinkedList Node
 };
 
@@ -24,8 +26,8 @@ node addNode(node head, int *value) {
     temp = createNode(); // Create new node store in temp
     temp->data = value; // assign data to newly created LinkedList Node
 
-    if(head == NULL) { // makes it possible to append to empty list
-        return temp;
+    if(head == NULL) { // makes it possible to "append" to empty list
+        return temp; // Just returns 1 node
     }
     else {
         p = head; // assign head Node to p
@@ -39,7 +41,7 @@ node addNode(node head, int *value) {
     return head;
 }
 
-node popNode(node head) {
+node popNode(node head) { // The same as addNode
     node temp;
     node p;
 
@@ -55,13 +57,14 @@ node popNode(node head) {
             p = p->next;
         }
 
-        free(p->next);
-        p->next = NULL;
+        free(p->next); // Free
+        p->next = NULL; // Then set next to null
         
         return head;
     }
 }
 
+// Create the PathArray which our LinkedList will store in Data
 int* createPathArray(int value_1, int value_2) { // Another solution could be to create some sort of array structure, storing the length of the array
     int *temp = (int *)malloc(sizeof(int) * 2); // Allocate 2 * sizeof(int) / 8 bytes to memory
     temp[0] = value_1; // store parameters in memory
@@ -70,6 +73,7 @@ int* createPathArray(int value_1, int value_2) { // Another solution could be to
     return temp;
 };
 
+// Goes through entire list and prints it
 void printList(node head) {
     node p = head;
     while (p != NULL) {
@@ -82,6 +86,7 @@ void printList(node head) {
     }
 }
 
+// Free this memory hog!
 void freeList(node head) {
     node temp;
     node p = head;
@@ -95,9 +100,9 @@ void freeList(node head) {
     }
 }
 
+// Copies 
 node copyList(node src_list, node dst_list) {
     dst_list = NULL;
-    //free(dst_list);
     freeList(dst_list);
 
     node p = src_list;

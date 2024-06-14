@@ -8,9 +8,9 @@ struct LinkedList
 };
 
 // Define new dataType of LinkedList pointer = node
-typedef struct LinkedList *node; // Node is a pointer to a LinkedList structure ( sizeof(int) + sizeof(*int) )
+typedef struct LinkedList *node; // Node is a pointer to a LinkedList structure ( sizeof(*int) + sizeof(*linkedList) )
 
-node createNode()
+node createNode() 
 {
     node temp;
     temp = (node)malloc(sizeof(struct LinkedList)); // (node) = Return a pointer to LinkedList, Sizeof() = allocate size of LinkedList struct to memory
